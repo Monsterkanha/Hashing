@@ -1,0 +1,28 @@
+Make hashmap and for each sum check if this sum already found and if yes then check condition and insert to the ans. and finally sort the answer to get lexico.
+
+vector<int> Solution::equal(vector<int> &A) {
+    unordered_map<int,pair<int,int>> M;
+    vector<vector<int>> ans;
+    for(int i = 0; i < A.size()-1; i++){
+        for(int j = i+1; j < A.size(); j++){
+            int sum = A[i] + A[j];
+            if(M.find(sum) == M.end()){
+                M[sum] = {i, j};
+            }
+            else{
+                int x = M[sum].first;
+                int y = M[sum].second;
+                if(x != i && y != j && x!= j && y != i ){
+                    vector<int> temp{x,y,i,j};
+                    ans.push_back(temp);
+                    
+                }
+            }
+        }
+    }
+    if(ans.size()){
+        sort(ans.begin(), ans.end());
+        return ans[0];
+    }
+    return {};
+}
