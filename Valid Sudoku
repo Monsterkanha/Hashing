@@ -1,0 +1,36 @@
+Here, We use three array.
+1. row
+2. col
+3. each sum matrix of 3X3;
+
+0  0  0 | 1  1  1 | 2  2  2
+0  0  0 | 1  1  1 | 2  2  2
+0  0  0 | 1  1  1 | 2  2  2
+--------+---------+---------
+3  3  3 | 4  4  4 | 5  5  5
+3  3  3 | 4  4  4 | 5  5  5
+3  3  3 | 4  4  4 | 5  5  5
+--------+----------+--------
+6  6  6 | 7  7  7 | 8  8  8
+6  6  6 | 7  7  7 | 8  8  8
+6  6  6 | 7  7  7 | 8  8  8
+
+so to calculate k means sub matrix :- We simply divide i/3 gives us how many row are filled but we want boxes so (i/3)*3 since each row has 3 box
+and then j/3 offset from current row.
+
+and check whether in current row or col or submatrix has it seen.
+
+bool isValidSudoku(vector<vector<char> > &board){
+    int used1[9][9] = {0}, used2[9][9] = {0}, used3[9][9] = {0};
+
+    for(int i = 0; i < board.size(); ++ i)
+        for(int j = 0; j < board[i].size(); ++ j)
+            if(board[i][j] != '.'){
+                int num = board[i][j] - '0' - 1, k = i / 3 * 3 + j / 3;
+                if(used1[i][num] || used2[j][num] || used3[k][num])
+                    return false;
+                used1[i][num] = used2[j][num] = used3[k][num] = 1;
+            }
+
+    return true;
+}
