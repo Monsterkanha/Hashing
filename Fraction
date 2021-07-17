@@ -1,0 +1,33 @@
+Here, When the remainder is repeated means fraction will gonna repeat.
+so we follow the same, convert first both in long abs
+Deal sign in starting only.
+1. Calculate remainder if it is zero then break here only.
+Create a map that will store index of found remainder.
+If remainder is repeated then we need to insert "(" at that position so we use insert and index is from map.
+
+string Solution::fractionToDecimal(int A, int B) {
+    if(!A) return "0";
+    
+    string ans = "";
+    if(A > 0 ^ B > 0) ans += '-';
+    long n = labs(A) , m = labs(B);
+    long r = n % m;
+    ans += to_string(n/m);
+    if(!r){
+        return ans;
+    }
+    ans += ".";
+    unordered_map<long, int> rm;
+    while(r){
+        if(rm.find(r) != rm.end()){
+            ans.insert(rm[r], "(");
+            ans += ")";
+            break;
+        }
+        rm[r] = ans.size();
+        r *= 10;
+        ans += to_string(r/m);
+        r %= m;
+    }
+    return ans;
+}
