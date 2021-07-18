@@ -1,0 +1,32 @@
+When there is large amount of insertion or deletion
+And you know the first and last value so try to make vector map
+
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, vector<int> &C) {
+    int i = 0;
+    int na = A.size() , nb = B.size() , nc = C.size();
+    vector<int> h1(100003) , h2(100003), h3(100003);
+    while(i < na){
+        while(i < na-1 && A[i] == A[i+1])    i++;
+        h1[A[i]]++;
+        i++;
+    }
+    i = 0;
+    while(i < nb){
+        while(i < nb-1 && B[i] == B[i+1]) i++;
+        h2[B[i]]++;
+        i++;
+    }
+    i = 0;
+    while(i < nc){
+        while(i < nc-1 && C[i] == C[i+1]) i++;
+        h3[C[i]]++;
+        i++;
+    }
+    vector<int> ans;
+    for(int i = 0; i <= 100000; i++){
+        if((h1[i] > 0 && h2[i] > 0) || (h2[i] > 0 && h3[i] > 0) || (h1[i] > 0 && h3[i] > 0) )
+        ans.push_back(i);
+    }
+    // sort(ans.begin() , ans.end());
+    return ans;
+}
