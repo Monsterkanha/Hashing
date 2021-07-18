@@ -1,0 +1,23 @@
+We will maintain a hashmap, which contain sum and we are calculating sum in different way if current is 1 then add 1 is 0 then add -1.
+And check the first index of sum - 1 for my current since after that index is my answer. so just save answer.
+And then update answer in hashmap.
+int Solution::solve(vector<int> &A) {
+    int n = A.size();
+    int sum = 0 , mx = 0;
+    unordered_map<int,int> M;
+    M[0] = -1;
+    for(int i = 0; i < n; i++){
+        if(A[i] == 0) sum--;
+        else sum++;
+        
+        if(M.find(sum -1) != M.end()){
+            mx = max(mx, i - M[sum-1] );
+        }
+        if(M.find(sum) == M.end()){
+            M[sum] = i;
+        }
+        
+    }
+    return mx;
+
+}
