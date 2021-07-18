@@ -1,0 +1,18 @@
+1. Create hashmap for number of odd seen and for current use hashmap to retrieve the answer.
+
+int Solution::solve(vector<int> &A, int B) {
+    int odd = 0 ,  n = A.size() , ans =0;
+    unordered_map<int,int> M;
+    M[0] = 1;
+    for(int i =0 ; i < n; i++){
+        if(A[i]%2) odd++;
+       
+        if(M.find(odd-B) != M.end()){
+            ans += M[odd-B];
+        }
+        
+        M[odd]++;
+    }
+   
+    return ans;
+}
