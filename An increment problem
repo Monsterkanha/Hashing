@@ -21,3 +21,20 @@ vector<int> Solution::solve(vector<int> &A) {
 }
 
 
+vector<int> Solution::solve(vector<int> &A) {
+    int n = A.size();
+    
+    unordered_map<int,int> M;
+
+    for(int i= 0; i < n; i++){
+        if(M.find(A[i]) != M.end()){
+            M[A[i] + 1] = M[A[i]];
+        }
+        M[A[i]] = i;
+    }
+    vector<int> res = A;
+    for(auto &x: M){
+        res[x.second] = x.first;
+    }
+    return res;
+}
