@@ -1,0 +1,25 @@
+int Solution::solve(vector<int> &A, int B) {
+    int i = 0, j = 0, n = A.size();
+    int sum = 0, ans = 0;
+    while(j < n){
+        sum += A[j];
+        while(i < n && sum >= B){
+            sum -= A[i++];
+        }
+        ans += (j - i + 1);
+        j++;
+    }
+    return ans;
+}
+
+
+// i will tells the start of the window, j will tells the current pointer.
+
+// eg. 1 2 3 4 5 ,    B = 7
+// i = 0, j = 0  1
+// i = 0, j = 1  1 ,  1 2
+// i = 0 , j =2  3 ,  2 3 , 1 ,2 3  
+// i = 0, j = 3 now sum exceed so start contracting the window. 
+
+
+// try to work on suffix basis.
